@@ -169,6 +169,7 @@ export default function Employees() {
                 employeeId={deleteDialog.employeeId}
                 employeeName={deleteDialog.employeeName}
                 onCancel={handleDeleteCancel}
+                onDelete={handleDeleteCancel}
             />
         </Fragment>
     );

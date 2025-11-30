@@ -141,7 +141,7 @@ const employeeSlice = createSlice({
             })
             .addCase(createEmployee.fulfilled, (state, action) => {
                 state.loading = false;
-                state.employees.push(action.payload);
+                state.employees.push(action.payload.employee);
             })
             .addCase(createEmployee.rejected, (state, action) => {
                 state.loading = false;
@@ -156,9 +156,9 @@ const employeeSlice = createSlice({
                 state.loading = false;
                 const index = state.employees.findIndex((emp) => emp.employee_id === action.payload.employee_id);
                 if (index !== -1) {
-                    state.employees[index] = action.payload;
+                    state.employees[index] = action.payload.employee;
                 }
-                state.selectedEmployee = action.payload;
+                state.selectedEmployee = action.payload.employee;
             })
             .addCase(updateEmployee.rejected, (state, action) => {
                 state.loading = false;

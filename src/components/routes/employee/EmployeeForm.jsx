@@ -113,11 +113,13 @@ export default function EmployeeForm() {
         setDeleteDialogOpen(true);
     };
 
+    const handleDeleteConfirm = () => {
+        setDeleteDialogOpen(false);
+        navigate("/employee");
+    }
+
     const handleDeleteCancel = (wasDeleted) => {
         setDeleteDialogOpen(false);
-        if (wasDeleted) {
-            navigate("/employee");
-        }
     };
 
     if (loading && isEditMode) {
@@ -312,6 +314,7 @@ export default function EmployeeForm() {
                         employeeId={selectedEmployee.employee_id}
                         employeeName={selectedEmployee.email}
                         onCancel={handleDeleteCancel}
+                        onDelete={handleDeleteConfirm}
                     />
                 )}
             </Box>

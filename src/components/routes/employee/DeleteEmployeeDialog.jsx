@@ -14,6 +14,7 @@ export default function DeleteEmployeeDialog({
     employeeId,
     employeeName,
     onCancel,
+    onDelete,
     loading = false,
 }) {
     const dispatch = useDispatch();
@@ -22,7 +23,7 @@ export default function DeleteEmployeeDialog({
     const handleDeleteConfirm = async (employeeId) => {
         const result = await dispatch(deleteEmployee({employeeId}));
         if (deleteEmployee.fulfilled.match(result)) {
-            onCancel(true)
+            onDelete();
         }
     }
 
