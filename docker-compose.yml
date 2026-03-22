@@ -1,0 +1,21 @@
+services:
+  comp3123-frontend:
+    image: ghcr.io/gbc-ekos/comp3123-frontend:latest
+    container_name: comp3123-frontend
+    restart: unless-stopped
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik
+      - traefik.http.routers.comp3123-frontend.rule=Host(`comp3123-frontend.ekosenko.me`)
+      - traefik.http.routers.comp3123-frontend.entrypoints=websecure
+      - traefik.http.routers.comp3123-frontend.tls.certresolver=le
+      - traefik.http.routers.comp3123-frontend-http.rule=Host(`comp3123-frontend.ekosenko.me`)
+      - traefik.http.routers.comp3123-frontend-http.entrypoints=web
+      - traefik.http.routers.comp3123-frontend-http.middlewares=to-https
+      - traefik.http.middlewares.to-https.redirectscheme.scheme=https
+
+networks:
+  traefik:
+    external: true

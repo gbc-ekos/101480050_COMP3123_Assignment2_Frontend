@@ -45,17 +45,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             echo ${{ secrets.GHCR_PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-            docker pull ${{ env.IMAGE_NAME }}:latest
-            docker stop ${{ env.CONTAINER_NAME }} || true
-            docker rm ${{ env.CONTAINER_NAME }} || true
-            docker run -d \
-              --name ${{ env.CONTAINER_NAME }} \
-              --network traefik-net \
-              --restart unless-stopped \
-              --label "traefik.enable=true" \
-              --label "traefik.http.routers.comp3123-frontend.rule=Host(\`comp3123-frontend.ekosenko.me\`)" \
-              --label "traefik.http.routers.comp3123-frontend.entrypoints=websecure" \
-              --label "traefik.http.routers.comp3123-frontend.tls.certresolver=letsencrypt" \
-              --label "traefik.http.services.comp3123-frontend.loadbalancer.server.port=3000" \
-              ${{ env.IMAGE_NAME }}:latest
+            cd ~/comp3123-frontend
+            docker compose pull
+            docker compose up -d --force-recreate
             docker image prune -f
